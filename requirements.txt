@@ -1,0 +1,14 @@
+# Python 依赖
+
+# 核心依赖
+yt-dlp>=2024.0.0
+faster-whisper>=1.0.0
+playwright>=1.40.0
+requests>=2.28.0
+
+# 音视频处理
+av>=10.0.0
+
+# 推荐用于 macOS 安装 playwright 依赖
+# playwright install chromium
+（内容由AI生成，仅供参考）

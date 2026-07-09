@@ -1,0 +1,9 @@
+{
+  "output_dir": "/Users/tianbokai/Downloads/冒烟测试0709",
+  "pip_mirror": "https://pypi.tuna.tsinghua.edu.cn/simple",
+  "hf_mirror": "https://hf-mirror.com",
+  "whisper_model": "small",
+  "whisper_device": "cpu",
+  "whisper_compute": "int8",
+  "folder_strategy": "platform/bvid"
+}
