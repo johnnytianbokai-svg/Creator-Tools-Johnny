@@ -1,131 +1,240 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 44de08c4f7781fe3119b98807a2d348b_ae76735e7b6111f1aac35254006c9bbf
-    ReservedCode1: RH/5DZIQNvj9GWzhX331AD+lrhT4oQGOygBCQmRN9KkocG4W7ttBVUtnJN6l6qNDmgUnHjFNeJ0WwAqk8EHSM8UjKbR4RzKvTa4kWU4logBdPPxteurDQ3d7ZMFHyeend6dozYJNDHqO9s/kbxWoycdljvYYDs0yV0bYd4krRDyskRLF7TueRAKKGR4=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 44de08c4f7781fe3119b98807a2d348b_ae76735e7b6111f1aac35254006c9bbf
-    ReservedCode2: RH/5DZIQNvj9GWzhX331AD+lrhT4oQGOygBCQmRN9KkocG4W7ttBVUtnJN6l6qNDmgUnHjFNeJ0WwAqk8EHSM8UjKbR4RzKvTa4kWU4logBdPPxteurDQ3d7ZMFHyeend6dozYJNDHqO9s/kbxWoycdljvYYDs0yV0bYd4krRDyskRLF7TueRAKKGR4=
----
-
 # 你是我的眼儿
 
-B站/抖音视频下载与分析工具。支持视频下载、弹幕抓取、评论采集、字幕提取、语音转录。
+> 让模型真正看见视频。
 
-## 功能
+一个面向创作者的大语言模型视频读取工具。  
+支持 B站 / 抖音视频下载、语音转写、弹幕提取、评论采集，并输出 JSON / CSV / TXT / SRT，帮助 GPT、DeepSeek、Claude 等模型更完整地理解视频内容。
 
-- **B站视频**：基于 yt-dlp 下载 DASH 双轨视频，自动 ffmpeg 合并；弹幕、评论、AI字幕抓取
-- **抖音视频**：基于 Playwright 浏览器自动化 + yt-dlp 下载；评论、弹幕抓取
-- **语音转录**：基于 faster-whisper 本地语音转文字（默认 small 模型）
-- **GUI 界面**：Tkinter 原生界面，支持输出目录配置、平台适配器扩展
+---
 
-## 系统要求
+## 为什么做这个工具？
 
-- macOS 10.15+
-- Python 3.11+（内置 DMG 安装版自带 Python）
-- 依赖：详见 `requirements.txt`
+在真实创作里，我们经常会遇到一个问题：
 
-## 安装方式（最终用户）
+你想让大语言模型学习一条视频的口播稿，分析一个目标创作者的表达风格，拆解爆款视频的评论反馈，或者把一批参考视频变成自己的创作语料。
 
-### DMG 安装版（推荐）
+但大多数多模态模型理解视频时，通常依赖抽帧、关键帧采样、片段摘要或单独的音频转写。  
+这很容易让模型只“看个大概”，而不是完整理解一个视频。
 
-1. 下载 `你是我的眼儿_1.0.1.dmg`
-2. 打开 DMG，将 `你是我的眼儿.app` 拖入 `Applications` 文件夹
-3. 首次启动会提示安装 Chromium（约150MB），请等待完成
-4. 启动后配置输出目录，即可使用
+一个视频真正有价值的部分，不只在画面里。
 
-本机运行 App 路径：`/Applications/你是我的眼儿.app`
+它还在：
 
-### 源码运行
+- 口播里
+- 字幕里
+- 弹幕里
+- 评论区里
+- 观众如何回应这条内容里
+
+所以我做了「你是我的眼儿」。
+
+它的目标不是替代创作者，而是让创作者更好地调用模型。  
+当模型真正读懂视频的声音、字幕、弹幕和评论，创作就不再只是“看个大概”，而是可以进入更完整的内容现场。
+
+---
+
+## 它能做什么？
+
+目前支持：
+
+- B站视频下载
+- 抖音视频下载
+- 视频信息提取
+- 弹幕抓取
+- 评论采集
+- 本地语音转写
+- SRT 字幕生成
+- JSON / CSV / TXT 输出
+- macOS 图形界面操作
+- 自定义输出目录
+
+输出内容可以直接交给大语言模型读取，用于内容分析、脚本学习、风格拆解和创作辅助。
+
+---
+
+## 适合谁用？
+
+这个工具适合：
+
+- 内容创作者
+- 短视频编导
+- 广告 / 影视 / 活动策划
+- 文案创作者
+- AIGC 创作者
+- 想用 LLM 学习视频表达的人
+- 想建立个人创作语料库的人
+
+你可以用它来：
+
+- 学习目标创作者的口播风格
+- 拆解短视频脚本结构
+- 分析爆款视频评论区反馈
+- 把视频内容变成 LLM 可读材料
+- 建立自己的内容参考库
+- 训练更理解你需求的创作助手
+
+---
+
+## 核心特性
+
+### 本地化处理
+
+不依赖第三方转写 API。  
+主要通过本地依赖完成处理：
+
+- Python 3.11
+- ffmpeg
+- faster-whisper
+- yt-dlp
+- Playwright
+- requests
+
+### 多格式输出
+
+支持输出：
+
+- `.json`
+- `.csv`
+- `.txt`
+- `.srt`
+- `.mp4`
+
+### 面向 LLM 的结构化读取
+
+工具会尽可能把视频内容拆成模型更容易读取的材料：
+
+- 视频原片
+- 视频元信息
+- 全程语音转写
+- 字幕文件
+- 弹幕数据
+- 评论数据
+- 清洗后的 CSV / JSON 文件
+
+---
+
+## 安装方式
+
+### macOS DMG 安装版
+
+安装包：
+
+```text
+你是我的眼儿_1.0.1.dmg
+```
+
+安装方式：
+
+1. 下载 DMG 安装包
+2. 打开 DMG
+3. 将 `你是我的眼儿.app` 拖入 `Applications`
+4. 从应用程序中启动
+
+本机运行路径：
+
+```text
+/Applications/你是我的眼儿.app
+```
+
+> 注意：DMG 安装包建议放在 GitHub Releases 中，不建议直接提交到 Git 仓库。
+
+---
+
+## 源码运行
+
+如果你想从源码运行：
 
 ```bash
-# 克隆仓库
-git clone <repo-url>
-cd 你是我的眼儿
-
-# 安装依赖
 pip install -r requirements.txt
 playwright install chromium
-
-# 启动
 python app.py
 ```
 
-## 源码说明
+---
 
+## 登录说明
+
+本项目不包含任何用户 Cookie、账号信息或浏览器 Profile。
+
+B站和抖音都需要用户在自己的电脑上完成登录授权：
+
+- B站：运行时从本地已登录浏览器读取 Cookie
+- 抖音：通过 Playwright 浏览器环境建立本地登录态
+
+所有登录信息只存在于用户本机。
+
+---
+
+## 输出目录
+
+可以在软件界面中选择输出目录。
+
+输出结构一般为：
+
+```text
+输出目录 / 平台 / 视频ID /
 ```
+
+例如：
+
+```text
+~/Downloads/视频读取结果/bilibili/BVxxxx/
+~/Downloads/视频读取结果/douyin/7657464140584102779/
+```
+
+---
+
+## 项目结构
+
+```text
 你是我的眼儿/
-├── app.py                  # GUI 主程序
-├── launcher.sh             # .app 启动脚本
-├── config.json             # 用户配置（输出目录、Whisper 参数等）
-├── setup.py                # Python 打包配置
-├── icon.icns / icon.png    # 应用图标
-├── requirements.txt        # Python 依赖
+├── app.py
 ├── core/
-│   ├── bilibili.py         # B站下载/弹幕/评论/字幕
-│   ├── douyin.py           # 抖音下载/弹幕/评论
-│   ├── transcribe.py       # Whisper 语音转录
-│   ├── state.py            # 统一状态/路径管理
-│   ├── config.py           # 配置加载
-│   ├── contract.py         # 数据契约定义
-│   ├── env_check.py        # 环境检查
-│   ├── common.py           # 公共工具函数
-│   ├── cleaner.py          # 清理工具
-│   └── adapters/           # 平台适配器
-│       ├── bilibili_adapter.py
-│       └── douyin_adapter.py
-├── scripts/                # 辅助脚本
-└── 你是我的眼儿_1.0.1.dmg  # 安装包
+│   ├── bilibili.py
+│   ├── douyin.py
+│   ├── transcribe.py
+│   ├── state.py
+│   ├── config.py
+│   ├── contract.py
+│   ├── env_check.py
+│   └── adapters/
+├── scripts/
+├── requirements.txt
+├── BUILD.md
+├── VERSION.md
+└── README.md
 ```
 
-## 依赖说明
-
-- **yt-dlp**：视频下载
-- **faster-whisper**：语音转录
-- **playwright**：抖音浏览器自动化 + Chromium
-- **requests**：API 请求
-- **av**：音视频处理
-
-## 登录态说明
-
-- 本仓库**不包含**任何用户 Cookie、登录凭据或浏览器 Profile
-- B站下载依赖本地浏览器 Cookie（运行时从已登录的浏览器自动读取）
-- 抖音依赖本地浏览器登录态 + 持久化 Profile（存储在 `~/.ni_shi_wo_de_yaner/douyin_profile/` 或 `~/Library/Application Support/你是我的眼儿/`）
-- 登录态仅在用户本机有效，源码不包含任何账户信息
-
-## 输出目录说明
-
-默认输出目录：`~/Downloads/你是我的眼儿_output/`
-
-可通过 `config.json` 中的 `output_dir` 字段自定义，例如：
-```json
-{
-  "output_dir": "/Users/xxx/Downloads/my_output"
-}
-```
-
-输出结构：`{output_dir}/{platform}/{video_id}/`
+---
 
 ## 版本
 
-最新版本：**1.0.1** — 详见 `VERSION.md`
+当前版本：
 
-## GitHub 上传注意事项
-
-DMG 安装包（约190MB）不应直接提交到 Git 仓库。建议：
-- **方法一**：使用 GitHub Releases 附件上传 DMG
-- **方法二**：使用 Git LFS 跟踪 `.dmg` 文件
-- **方法三**：仅上传源码，DMG 在 Release 页面单独提供
-
-```bash
-# 初始化仓库
-git init
-git add .
-git commit -m "Initial commit: 你是我的眼儿 v1.0.1"
-
-# 如果使用 Git LFS
-git lfs track "*.dmg"
-git add .gitattributes
+```text
+v1.0.1
 ```
-*（内容由AI生成，仅供参考）*
+
+主要修复：
+
+- 修复 ffprobe 打包问题
+- 修复 GUI 输出目录不生效问题
+- 生成 macOS DMG 安装包
+- 完成 B站手动 GUI 冒烟测试
+
+---
+
+## 注意事项
+
+- 本工具仅用于学习、研究和个人内容分析。
+- 请遵守相关平台的服务条款。
+- 请勿用于侵犯版权、批量搬运或未经授权的数据抓取。
+- 抖音 / B站登录态需要用户自行在本机完成。
+- 首次运行可能需要下载 Chromium 或 Whisper 模型。
+
+---
+
+## 一句话
+
+你是我的眼儿。  
+让模型真正看见视频。
