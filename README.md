@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="./KV.png" alt="你是我的眼儿 KV" width="100%">
+</p>
 # 你是我的眼儿
 
 > 让模型真正看见视频。
